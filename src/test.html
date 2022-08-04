@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <script>
+        // concat, filter, map, slice, 스프레드(전개) 연산자
+        console.log("1. =========== 스프레드 연산자");
+        const a = [1, 2, 3];
+        const b = [...a]; // b라는 공간에 a의 값인 1,2,3을 할당해준다.
+        b.push(4); // 기존 배열에 값을 추가한다.
+        console.log(`a의 값은 : ${a}`); // 1,2,3
+        console.log(`b의 값은 : ${b}`); // 1,2,3,4
+
+
+        console.log("2. =========== 추가하기");
+        const a2 = [1, 2, 3];
+        const b2 = a2.concat(4); // a2에 4가 추가된 값이 새로운 배열인 b2에 할당된다.
+        console.log(`a2의 값은 : ${a2}`); // 1,2,3
+        console.log(`b2의 값은 : ${b2}`); // 1,2,3,4
+        const c2 = [0, ...a, 4]; // concat과 같은 효과
+        console.log(`c2의 값은 : ${c2}`); // 1,2,3,4
+
+        console.log("3. =========== 걸러내기"); // 삭제할때 주로 사용한다.
+        const a3 = [1, 2, 3];
+        const b3 = a3.filter((n) => {
+            return n !== 1;
+        }); // bool을 return받는다. -> true만 걸러낸다.
+        console.log(b3); // 2,3
+
+        console.log("4. =========== 잘라내기"); // 배열사이에 데이터를 삽입할때 주로 사용
+        const a4 = [1, 2, 3];
+        const b4 = a4.slice(0, 2);
+        console.log(b4); // [1,2]
+        // const c4 = [a4.slice(0, 2)]; // 0번째 인덱스부터 2번째 인덱스 전까지의 데이터만 뽑아냄
+        // console.log(c4); // [[1,2]]
+        const c4 = [...a4.slice(0, 2), 4, ...a4.slice(2, 3)];
+        console.log(c4); // [1,2,4,3]
+
+        console.log("5. =========== 반복하기");
+        const a5 = [1, 2, 3];
+        // a5.forEach((n) => {console.log(n)}) // foreach는 void라 값을 못넘김.
+        const b5 = a5.map((n) => n + 10); // {}가 없으면 자동으로 return문이 된다. // const b5 = [...a5];와 같다
+        console.log(b5) // b5와 a5는 다른 주소를 가지고 있다.
+
+        console.log("6. =========== map과 spread 응용하기");
+        const data = { phone: "2222" }
+        const a6 = { id: 1, name: "홍길동", phone: "1111", age: 17, gender: "남" };
+        const b6 = { ...a6, name: "임꺽정", ...data }; // 먼저 흩뿌렸지만 key값이 같은것은 덮어싀워진다.
+        console.log(b6);
+        const c6 = { ...data, name: "임꺽정", ...a6 }
+        console.log(c6); // 순서대로 실행되기 때문에 순서가 바뀌면 결과가 바뀐다.
+
+        const users = [
+            { id: 1, name: "재민", phone: "2222" },
+            { id: 2, name: "현수", phone: "3333" },
+            { id: 3, name: "현기", phone: "4444" }
+        ];
+
+        const updateUserDto = {
+            id: 2, name: "순일"
+        };
+
+        const newUsers = users.map(user => user.id === updateUserDto.id ? { ...users, ...updateUserDto } : user); // const newUser = {...users};
+        console.log("newUsers", newUsers)
+
+        //users[1].name = updateUserDto.name;
+        // console.log(users);
+
+    </script>
+</body>
+
+</html>
