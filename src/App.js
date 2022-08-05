@@ -1,35 +1,26 @@
-import { useEffect, useState } from 'react';
-import Third from './aa/Third';
+import { useState } from 'react';
 import './App.css';
-import Sub from './Sub';
-import { num } from './Sub';
+
+// useMemo => 메모라이제이션(기억)
 
 function App() {
 
-  const [data, setData] = useState(0);
-  const [search, setSearch] = useState(0);
+  const [list, setList] = useState([1, 2, 3, 4]);
 
-  const download = () => {
-    // 다운로드 받고 (통신)
-    let downloadData = 5; // 가정
-    setData(downloadData);
+  const getAddResult = () => {
+    let sum = 0;
+    list.forEach(i => sum = sum + i);
+    console.log('sum 함수 실행됨:', sum);
+    return sum;
   }
-
-  // 실행시점 :
-  // (1) App() 그림이 최초 그려질 때 (마운트될 때)
-  // (2) 상태 변수가 변경될 때
-  // (3) 의존리스트 관리를 할 수 있다.
-  useEffect(() => {
-    console.log("useEffect 실행됨");
-    download();
-  }, [search]);
 
   return (
     <div>
-      <h1>데이터 : {data}</h1>
-      <button onClick={() => {
-        setSearch(2)
-      }}>더하기 </button>
+      <button onClick={() => { setList([...list, 10]); }}>리스트값 추가</button>
+      <div>
+        {list.map((i => <h1>{i}</h1>))}
+      </div>
+      <div>합계 : {getAddResult()}</div>
     </div>
   );
 }
