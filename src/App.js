@@ -1,24 +1,35 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import Third from './aa/Third';
 import './App.css';
 import Sub from './Sub';
+import { num } from './Sub';
 
 function App() {
 
-  // let number = 1; // 상태 값 아님
+  const [data, setData] = useState(0);
+  const [search, setSearch] = useState(0);
 
-  const [number, setNumber] = useState(1); // React안에 hooks 라이브러리 상태값이 됨.
-
-  const add = () => {
-    setNumber(number + 1); // 리액트한테 number 값 변경할게 라고 요청
-    console.log("add", number);
+  const download = () => {
+    // 다운로드 받고 (통신)
+    let downloadData = 5; // 가정
+    setData(downloadData);
   }
 
-  // 랜더링 시점 = 상태값 변경
+  // 실행시점 :
+  // (1) App() 그림이 최초 그려질 때 (마운트될 때)
+  // (2) 상태 변수가 변경될 때
+  // (3) 의존리스트 관리를 할 수 있다.
+  useEffect(() => {
+    console.log("useEffect 실행됨");
+    download();
+  }, [search]);
+
   return (
     <div>
-      <h1>숫자 : {number}</h1>
-      <button onClick={add}>더하기</button>
-      <Sub />
+      <h1>데이터 : {data}</h1>
+      <button onClick={() => {
+        setSearch(2)
+      }}>더하기 </button>
     </div>
   );
 }

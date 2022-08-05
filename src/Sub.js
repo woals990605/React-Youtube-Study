@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Sub = () => {
+let num = 10;
 
-    // 함수 제공!!
+const Sub = () => {
 
     return (
         <div>
@@ -11,4 +11,5 @@ const Sub = () => {
     );
 };
 
+export { num };
 export default Sub;
